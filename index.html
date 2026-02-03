@@ -108,60 +108,47 @@
   <!-- Header / Navegación -->
 
   <main>
-    <!-- Hero Section con slider -->
+    <!-- HEADER FIJO -->
+    <header class="mobile-header">
+      
+       <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+      
+      <div class="mobile-bar">
+        
 
-    <section id="inicio" class="hero fade-in" data-aos="fade-in">
+        <div class="logo">
+          <img src="Imagenes/logo-removebg-preview.png" alt="Impulsora de Recuperación Crediticia">
+        </div>
 
-      <header data-aos="fade-down" role="banner">
-        <nav class="navbar" aria-label="Menú principal">
-
-          <!-- Logo -->
-          <div class="logo">
-            <a href="index.html">
-              <img src="Imagenes/logo-removebg-preview.png" alt="ircdebtrecovery, Impulsora de Recuperación Crediticia, expertos en cobranza extrajudicial y recuperación de cartera">
-            </a>
-          </div>
-          <!-- Botón menú móvil -->
-          <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="lang-switch">
+          <button onclick="switchLanguage('es')">
+            <img src="Imagenes/bandera-mexico.webp" alt="ES">
           </button>
+          <button onclick="switchLanguage('en')">
+            <img src="Imagenes/bandera-usa.webp" alt="EN">
+          </button>
+          <button onclick="switchLanguage('chino')">
+            <img src="Imagenes/bandera china.webp" alt="ZH">
+          </button>
+        </div>
 
+        <button class="menu-toggle" id="menu-toggle">
+          <span></span><span></span><span></span>
+        </button>
 
-          <!-- Menú principal -->
-          <ul class="nav-links">
-            <li><a href="#inicio" class="nav-item active" data-key="navInicio">Inicio</a></li>
-            <li><a href="#nosotros" class="nav-item" data-key="navNosotros">Nosotros</a></li>
-            <li><a href="#servicios" class="nav-item" data-key="navServicios">Servicios</a></li>
-            <li><a href="#clientes" class="nav-item" data-key="navClientes">Clientes</a></li>
-            <li><a href="#contacto" class="nav-item" data-key="navContacto">Contacto</a></li>
+      </div>
+    
+    </header>
+    
 
-
-          </ul>
-
-          <!-- Derecha: visitas + idiomas -->
-          <div class="nav-right">
-
-            <!-- Selector de idioma -->
-            <div class="lang-switch">
-              <div>
-                <button onclick="switchLanguage('es')" aria-label="Cambiar a español">
-                  <img src="Imagenes/bandera-mexico.webp" alt="Español" title="Español">
-                </button>
-                <p>ES</p>
-              </div>
-              <div>
-                <button onclick="switchLanguage('en')" aria-label="Cambiar a inglés">
-                  <img src="Imagenes/bandera-usa.webp" alt="English" title="English">
-                </button>
-                <p>EN</p>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+    <!-- HERO FULL -->
+    <section id="inicio" class="hero fade-in" data-aos="fade-in">
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <h1 id="hero-title" data-key="heroTitle">IMPULSORA DE RECUPERACIÓN CREDITICIA</h1>
@@ -171,7 +158,9 @@
         <a href="#contacto" class="btn-primary" data-key="heroButton">Contáctanos</a>
         <a href="#servicios" class="btn-secondary" data-key="heroLearnMore">Conocer servicios</a>
       </div>
+      
     </section>
+
 
     <!-- Sección Servicios -->
     <section id="servicios" class="services fade-in" data-aos="fade-up">
@@ -347,7 +336,8 @@
     <section id="nosotros" class="about fade-in" data-aos="fade-up" data-aos-duration="1200">
       <div class="container about-container">
         <div class="about-text" data-aos="fade-right">
-          <h2 id="about-title" data-key="aboutTitle" alt="Impulsora de Recuperación Crediticia con más de 20 años de experiencia en cobranza extrajudicial">
+          <h2 id="about-title" data-key="aboutTitle"
+            alt="Impulsora de Recuperación Crediticia con más de 20 años de experiencia en cobranza extrajudicial">
             Nuestra trayectoria</h2>
           <p data-key="aboutDescription">
             En el año 2005 la Lic. Refugio Sandoval Santana fundó una firma de abogados en México, ofreciendo servicios
@@ -408,7 +398,7 @@
     </section>
 
     <section id="mapa" class="global-map fade-in" data-aos="fade-up" role="region"
-     aria-label="Mapa interactivo de presencia internacional de Impulsora de Recuperación Crediticia">
+      aria-label="Mapa interactivo de presencia internacional de Impulsora de Recuperación Crediticia">
       <h2 class="values-section-title" data-key="mapaTituloPrincipal">
         Presencia Global
       </h2>
@@ -492,76 +482,74 @@
 
     <!-- Footer -->
     <footer role="contentinfo" class="footer" data-aos="fade-up">
-  <div class="footer-container">
+      <div class="footer-container">
 
-    <!-- Lado Izquierdo: Marca, descripción, redes y enlaces -->
-    <div class="footer-left">
-      <img src="Imagenes/logo-removebg-preview.png"
-           alt="Impulsora de Recuperación Crediticia, especialistas en cobranza extrajudicial y recuperación de cartera"
-           style="max-inline-size: 150px; margin-block-end: 10px;">
+        <!-- Lado Izquierdo: Marca, descripción, redes y enlaces -->
+        <div class="footer-left">
+          <img src="Imagenes/logo-removebg-preview.png"
+            alt="Impulsora de Recuperación Crediticia, especialistas en cobranza extrajudicial y recuperación de cartera"
+            style="max-inline-size: 150px; margin-block-end: 10px;">
 
-      <h3 data-key="companyNameFooter">
-        Impulsora de Recuperación Crediticia
-      </h3>
+          <h3 data-key="companyNameFooter">
+            Impulsora de Recuperación Crediticia
+          </h3>
 
-      <p class="footer-subtitle" data-key="footerSubtitle">
-        Especialistas en cobranza extrajudicial y recuperación de cartera.
-      </p>
+          <p class="footer-subtitle" data-key="footerSubtitle">
+            Especialistas en cobranza extrajudicial y recuperación de cartera.
+          </p>
 
-      <!-- Redes Sociales -->
-      <div class="footer-social">
-        <a href="https://www.linkedin.com/in/thor-robledo-sandoval-750624b7"
-           target="_blank"
-           aria-label="LinkedIn de Impulsora de Recuperación Crediticia">
-          <img src="Imagenes/linkedin.png" alt="LinkedIn">
-        </a>
+          <!-- Redes Sociales -->
+          <div class="footer-social">
+            <a href="https://www.linkedin.com/in/thor-robledo-sandoval-750624b7" target="_blank"
+              aria-label="LinkedIn de Impulsora de Recuperación Crediticia">
+              <img src="Imagenes/linkedin.png" alt="LinkedIn">
+            </a>
 
-        <a href="https://wa.me/529982160639"
-           target="_blank"
-           aria-label="WhatsApp de Impulsora de Recuperación Crediticia">
-          <img src="Imagenes/whatsapp.png" alt="WhatsApp">
-        </a>
+            <a href="https://wa.me/529982160639" target="_blank"
+              aria-label="WhatsApp de Impulsora de Recuperación Crediticia">
+              <img src="Imagenes/whatsapp.png" alt="WhatsApp">
+            </a>
+          </div>
+
+          <!-- Enlaces Rápidos -->
+          <div class="footer-quick-links">
+            <ul>
+              <li><a href="blog.html" data-key="footerBlog">Blog</a></li>
+              <li><a href="#" data-key="footerGallery">Galería</a></li>
+            </ul>
+          </div>
+
+          <!-- Idiomas -->
+          <p class="footer-languages">
+            Idioma:
+            <span>ES</span> |
+            <span>EN</span> |
+            <span>ZH</span>
+          </p>
+
+          <!-- Micro-copy de confianza -->
+          <p class="footer-trust">
+            Atención ética, profesional y confidencial.
+          </p>
+
+          <p class="footer-copy" data-key="footerCopy">
+            © 2026 Todos los derechos reservados.
+          </p>
+        </div>
+
+        <!-- Lado Derecho: Navegación -->
+        <div class="footer-right">
+          <h4 data-key="footerNavigation">Navegación</h4>
+          <ul>
+            <li><a href="#inicio" data-key="navInicio">Inicio</a></li>
+            <li><a href="#nosotros" data-key="navNosotros">Nosotros</a></li>
+            <li><a href="#servicios" data-key="navServicios">Servicios</a></li>
+            <li><a href="#clientes" data-key="navClientes">Clientes</a></li>
+          </ul>
+        </div>
+
       </div>
-
-      <!-- Enlaces Rápidos -->
-      <div class="footer-quick-links">
-        <ul>
-          <li><a href="blog.html" data-key="footerBlog">Blog</a></li>
-          <li><a href="#" data-key="footerGallery">Galería</a></li>
-        </ul>
-      </div>
-
-      <!-- Idiomas -->
-      <p class="footer-languages">
-        Idioma:
-        <span>ES</span> |
-        <span>EN</span> |
-        <span>PT</span>
-      </p>
-
-      <!-- Micro-copy de confianza -->
-      <p class="footer-trust">
-        Atención ética, profesional y confidencial.
-      </p>
-
-      <p class="footer-copy" data-key="footerCopy">
-        © 2026 Todos los derechos reservados.
-      </p>
-    </div>
-
-    <!-- Lado Derecho: Navegación -->
-    <div class="footer-right">
-      <h4 data-key="footerNavigation">Navegación</h4>
-      <ul>
-        <li><a href="#inicio" data-key="navInicio">Inicio</a></li>
-        <li><a href="#nosotros" data-key="navNosotros">Nosotros</a></li>
-        <li><a href="#servicios" data-key="navServicios">Servicios</a></li>
-        <li><a href="#clientes" data-key="navClientes">Clientes</a></li>
-      </ul>
-    </div>
-
-  </div>
-</footer>
+    </footer>
 
   </main>
   <!-- Scripts -->

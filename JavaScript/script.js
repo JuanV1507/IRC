@@ -386,3 +386,52 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// voltear las cards de servicios
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const serviceCards = document.querySelectorAll('.service-card');
+  
+  serviceCards.forEach(card => {
+    const inner = card.querySelector('.card-inner');
+    
+    // Para móviles (touch)
+    if ('ontouchstart' in window || navigator.maxTouchPoints) {
+      card.addEventListener('click', function(e) {
+        // Evitar que se active si se hizo clic en un botón dentro
+        if (e.target.classList.contains('flip-back')) {
+          inner.classList.remove('flipped');
+          return;
+        }
+        
+        // Toggle del giro
+        if (inner.classList.contains('flipped')) {
+          inner.classList.remove('flipped');
+        } else {
+          inner.classList.add('flipped');
+        }
+      });
+      
+      // Añadir botón para voltear atrás en la cara trasera
+      const cardBack = card.querySelector('.card-back');
+      if (cardBack && !cardBack.querySelector('.flip-back')) {
+        const flipBackBtn = document.createElement('button');
+        flipBackBtn.className = 'flip-back';
+        flipBackBtn.textContent = 'Volver';
+        flipBackBtn.setAttribute('aria-label', 'Volver a la vista anterior');
+        cardBack.appendChild(flipBackBtn);
+      }
+    }
+    
+    // Para desktop mantener el hover
+    if (!('ontouchstart' in window || navigator.maxTouchPoints)) {
+      card.addEventListener('mouseenter', function() {
+        inner.classList.add('flipped');
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        inner.classList.remove('flipped');
+      });
+    }
+  });
+});
