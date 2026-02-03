@@ -1528,4 +1528,50 @@ footer {
     background: transparent;
   }
 }
+@media (max-width: 768px) {
+
+  /* Desactivar efecto flip */
+  .service-card-inner {
+    transform: none !important;
+  }
+
+  .service-card-front,
+  .service-card-back {
+    position: static;
+    transform: none;
+    backface-visibility: visible;
+  }
+
+  .service-card-back {
+    margin-top: 1.5rem;
+  }
+
+}
+@media (max-width: 768px) {
+
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  body {
+    padding-top: 80px; /* evita que el contenido quede debajo */
+  }
+
+}
+@media (max-width: 768px) {
+
+  .language-switch {
+    display: flex !important;
+    gap: 10px;
+    align-items: center;
+  }
+
+}
+
 
