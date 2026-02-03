@@ -8,15 +8,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO Básico -->
-  <title>Impulsora de Recuperación Crediticia | International Recovery and Collection</title>
+  <!-- SEO -->
+  <title>Cobranza Extrajudicial y Recuperación de Cartera | International Recovery and Collection</title>
   <meta name="description"
-    content="Impulsora de Recuperación Crediticia: soluciones profesionales en cobranza amigable, asesoría legal y negociación de deuda. Disponibilidad internacional." />
-  <meta name="keywords"
-    content="cobranza amigable, recuperación de cartera, asesoría legal, negociación de deuda, cobranza internacional, debt negotiation, legal advice, debt collection" />
+    content="Especialistas en cobranza extrajudicial y recuperación de cartera vencida. Asesoría legal y negociación de deuda en México y EE.UU." />
   <meta name="author" content="Impulsora de Recuperación Crediticia" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://ircdebtrecovery.com/" />
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Impulsora de Recuperación Crediticia">
+
 
   <!-- SEO Multilingüe -->
   <link rel="alternate" hreflang="es" href="https://ircdebtrecovery.com/es/" />
@@ -28,6 +30,12 @@
     content="Soluciones en cobranza amigable,Recuperación de credito, asesoría jurídica y recuperación de cartera vencida a nivel global." />
   <meta property="og:image" content="https://ircdebtrecovery.com/Imagenes/logo.webp" />
   <meta property="og:url" content="https://ircdebtrecovery.com/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cobranza Extrajudicial y Recuperación de Cartera">
+  <meta name="twitter:description"
+    content="Soluciones profesionales en cobranza y negociación de deuda en México y EE.UU.">
+  <meta name="twitter:image" content="https://ircdebtrecovery.com/Imagenes/logo.webp">
 
 
   <!-- Preconexión de rendimiento -->
@@ -63,11 +71,22 @@
   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": ["Organization", "FinancialService", "LegalService"],
         "name": "International Recovery and Collection",
         "url": "https://ircdebtrecovery.com",
         "logo": "https://ircdebtrecovery.com/Imagenes/logo.png",
-        "description": "Recupera tu dinero con nuestros expertos en cobranza extrajudicial, asesoría legal y negociación efectiva de deudas. Cobertura en México y el extranjero."
+        "description": "Recupera tu dinero con nuestros expertos en cobranza extrajudicial, asesoría legal y negociación efectiva de deudas. Cobertura en México y el extranjero.",
+              "areaServed": [
+          {
+            "@type": "Country",
+            "name": "Mexico"
+          },
+          {
+            "@type": "Country",
+            "name": "United States"
+          }
+        ],
+        "serviceType": "Cobranza extrajudicial y recuperación de cartera",
         "sameAs": [
           "https://www.linkedin.com/in/thor-robledo-sandoval-750624b7"
         ]
@@ -88,20 +107,20 @@
 <body>
   <!-- Header / Navegación -->
 
-
   <main>
     <!-- Hero Section con slider -->
+
     <section id="inicio" class="hero fade-in" data-aos="fade-in">
+
       <header data-aos="fade-down" role="banner">
         <nav class="navbar" aria-label="Menú principal">
 
           <!-- Logo -->
           <div class="logo">
             <a href="index.html">
-              <img src="Imagenes/logo-removebg-preview.png" alt="Logo de Impulsora de Recuperación Crediticia">
+              <img src="Imagenes/logo-removebg-preview.png" alt="ircdebtrecovery, Impulsora de Recuperación Crediticia, expertos en cobranza extrajudicial y recuperación de cartera">
             </a>
           </div>
-
           <!-- Botón menú móvil -->
           <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
             <span></span>
@@ -118,7 +137,7 @@
             <li><a href="#clientes" class="nav-item" data-key="navClientes">Clientes</a></li>
             <li><a href="#contacto" class="nav-item" data-key="navContacto">Contacto</a></li>
 
-            
+
           </ul>
 
           <!-- Derecha: visitas + idiomas -->
@@ -145,9 +164,10 @@
 
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <h2 id="hero-title" data-key="heroTitle">IMPULSORA DE RECUPERACIÓN CREDITICIA</h2>
+        <h1 id="hero-title" data-key="heroTitle">IMPULSORA DE RECUPERACIÓN CREDITICIA</h1>
         <p data-key="heroSubtitle"> Cobramos honorarios conforme a los pagos de deudores </p>
-        <p class="highlight" data-key="heroHighlight"> Especialistas en cobranza extrajudicial y recuperación de cartera.</p>
+        <p class="highlight" data-key="heroHighlight"> Especialistas en cobranza extrajudicial y recuperación de
+          cartera.</p>
         <a href="#contacto" class="btn-primary" data-key="heroButton">Contáctanos</a>
         <a href="#servicios" class="btn-secondary" data-key="heroLearnMore">Conocer servicios</a>
       </div>
@@ -159,14 +179,17 @@
         <h2 id="services-title" data-key="servicesTitle" style="text-align: center; font-size: 2.5rem;">
           Nuestros Servicios
         </h2>
-
+        <p class="services-note" data-key="servicesNote">
+          Cada estrategia se diseña de acuerdo al perfil de la deuda y los objetivos del cliente.
+        </p>
         <div class="services-grid">
-
           <!-- Servicio 1 -->
-          <div class="service-card" data-aos="fade-up">
+          <div class="service-card" data-aos="fade-up" tabindex="0">
             <div class="card-inner service-1">
               <div class="card-front">
-                <img class="service-icon" src="Imagenes/cobranza.svg" alt="Cobranza Extrajudicial" loading="lazy">
+                <img class="service-icon" src="Imagenes/cobranza.png"
+                  alt="Servicio de cobranza extrajudicial para empresas y despachos, recuperación de cartera vencida en México"
+                  loading="lazy">
                 <h3 data-key="service1Title">Cobranza Extrajudicial</h3>
                 <span class="service-tag" data-key="service1Tag">Empresas y despachos</span>
               </div>
@@ -187,12 +210,16 @@
           </div>
 
           <!-- Servicio 2 -->
-          <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card" data-aos="fade-up" data-aos-delay="100" tabindex="0">
             <div class="card-inner service-2">
               <div class="card-front">
-                <img class="service-icon" src="Imagenes/consulta.svg" alt="Asesoría" loading="lazy">
+                <img class="service-icon" src="Imagenes/asesoria.png"
+                  alt="Asesoría profesional en cobranza y recuperación de cartera vencida para empresas y personas independientes"
+                  loading="lazy">
                 <h3 data-key="service2Title">Asesoría</h3>
-                <span cclass="service-tag" data-key="service2Tag">Empresas con cartera vencida y personas independientes</span>
+
+                <span cclass="service-tag" data-key="service2Tag">Empresas con cartera vencida y personas
+                  independientes</span>
 
               </div>
 
@@ -215,10 +242,12 @@
           </div>
 
           <!-- Servicio 3 -->
-          <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card" data-aos="fade-up" data-aos-delay="200" tabindex="0">
             <div class="card-inner service-3">
               <div class="card-front">
-                <img class="service-icon" src="Imagenes/venta-inmuebles.png" alt="Negociación de deuda" loading="lazy">
+                <img class="service-icon" src="Imagenes/Negociación.png"
+                  alt="Negociación de deuda con bancos y acreedores, soluciones financieras para empresas y personas"
+                  loading="lazy">
                 <h3 data-key="service3Title">Negociación de deuda</h3>
                 <span class="service-tag" data-key="service3Tag">Personas y empresas</span>
 
@@ -241,9 +270,6 @@
 
         </div>
       </div>
-      <p class="services-note" data-key="servicesNote">
-        Cada estrategia se diseña de acuerdo al perfil de la deuda y los objetivos del cliente.
-      </p>
     </section>
 
     <!-- Sección Estadísticas Globales -->
@@ -261,16 +287,23 @@
           <span class="stat-number" data-target="18">0</span>
           <h4 data-key="globalStatsCountries">Países en los que hemos trabajado</h4>
         </div>
+        <p class="section-subtitle" data-key="globalStatsSubtitle">
+          Experiencia, eficiencia y alcance internacional que nos respaldan
+        </p>
       </div>
+
     </section>
 
     <!-- CTA después de Estadísticas -->
     <section class="cta-post-stats" style="background: #f7f7f7; padding: 4rem 2rem; text-align: center;">
-      <h2 data-key="ctaTitle" style="font-size: 2rem; margin-bottom: 1rem;">¿Listo para mejorar tu recuperación de cartera?</h2>
-      <p data-key="ctaText" style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left:auto; margin-right:auto;">
+      <h2 data-key="ctaTitle" style="font-size: 2rem; margin-block-end: 1rem;">¿Listo para mejorar tu recuperación de
+        cartera?</h2>
+      <p data-key="ctaText"
+        style="font-size: 1.1rem; margin-block-end: 2rem; max-inline-size: 600px; margin-inline-start:auto; margin-inline-end:auto;">
         Estamos listos para ayudarte a aumentar tu eficiencia en la cobranza y mantener relaciones comerciales sólidas.
       </p>
-      <a data-key="ctaButton" href="#contacto" class="btn-primary" style="padding: 14px 36px; font-size: 1.2rem;">Solicita tu asesoría</a>
+      <a data-key="ctaButton" href="#contacto" class="btn-primary"
+        style="padding: 14px 36px; font-size: 1.2rem;">Solicita tu asesoría</a>
     </section>
 
     <!-- Sección Clientes (Carrusel) -->
@@ -314,7 +347,8 @@
     <section id="nosotros" class="about fade-in" data-aos="fade-up" data-aos-duration="1200">
       <div class="container about-container">
         <div class="about-text" data-aos="fade-right">
-          <h2 id="about-title" data-key="aboutTitle">Sobre Nosotros</h2>
+          <h2 id="about-title" data-key="aboutTitle" alt="Impulsora de Recuperación Crediticia con más de 20 años de experiencia en cobranza extrajudicial">
+            Nuestra trayectoria</h2>
           <p data-key="aboutDescription">
             En el año 2005 la Lic. Refugio Sandoval Santana fundó una firma de abogados en México, ofreciendo servicios
             legales de tipo mercantil, fiscal,
@@ -330,148 +364,109 @@
           <img src="Imagenes/Perfil.jpeg" alt="Perfil de la empresa" loading="lazy">
         </div>
       </div>
-    </section>
+      <div class="container">
+        <h2 class="values-section-title">Nuestros Valores</h2>
 
-    <!-- Sección Valores Dinámicos -->
-<section class="mvv fade-in" data-aos="fade-up">
-  <div class="container">
+        <div class="values-cards">
 
-    <div class="values-rotator">
-
-      <h2 class="values-main-title">
-        NUESTROS VALORES
-      </h2>
-
-      <div class="values-slides">
-
-        <!-- MISIÓN -->
-        <div class="values-slide active">
-          <h3 data-key="misionTitle">Misión</h3>
-          <p data-key="misionDescription">
-            Ser una compañía de servicios sólida que brinde consistentemente un servicio excepcional a todos nuestros
-            clientes, impulsando el crecimiento y desarrollo de clientes, empleados y colaboradores a través de la
-            recuperación de su cartera vencida.
-          </p>
-        </div>
-
-        <!-- VISIÓN -->
-        <div class="values-slide">
-          <h3 data-key="visionTitle">Visión</h3>
-          <p data-key="visionDescription">
-            Somos una empresa de servicios de primera clase en mejora continua,
-            capaz de establecer una relación cercana con los clientes, personal y
-            sociedad para contribuir al desarrollo global.
-          </p>
-        </div>
-
-        <!-- VALORES -->
-        <div class="values-slide">
-          <h3 data-key="valoresTitle">Valores</h3>
-          <ul>
-            <li data-key="valoresHonestidad">
-              <strong>Honestidad:</strong> Total transparencia en el actuar y previa autorización de nuestros clientes.
-            </li>
-            <li data-key="valoresResponsabilidad">
-              <strong>Responsabilidad:</strong> Reconocemos el esfuerzo individual de nuestros colaboradores y cumplimos las necesidades de cada cliente.
-            </li>
-            <li data-key="valoresEnfoqueCliente">
-              <strong>Enfoque al Cliente:</strong> Nuestro principal objetivo es satisfacer a todos nuestros clientes excediendo sus expectativas.
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-    <!-- Sección Presencia Global -->
-    <section id="presencia-global" data-aos="fade-up" style="padding: 80px 20px; background: #FFA500; color: #fff;">
-      <div class="container"
-        style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px;">
-
-        <!-- Lado izquierdo: título y lista en 2 columnas -->
-        <div class="map-left" style="flex: 1; min-width: 300px;">
-          <h2 data-key="globalCoverageTitle" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: #000000;">
-            Presencia Internacional
-          </h2>
-          <div style="width: 60px; height: 4px; background: #fff; margin: 10px 0 30px; border-radius: 5px;"></div>
-
-          <!-- Lista de ubicaciones en 2 columnas -->
-          <ul class="map-list"
-            style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 20px; color: #fff;">
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Canadá</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> México</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Argentina</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> España</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Austria</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Noruega</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Francia</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Holanda</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Portugal</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Turquía</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Emiratos Árabes Unidos</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Kuwait</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> China</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Hong Kong</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i> Japón</li>
-          </ul>
-        </div>
-
-        <!-- Lado derecho: imagen del mapa con pines -->
-        <div class="map-right" style="flex: 1; min-width: 400px; position: relative;">
-          <img src="Imagenes/map.svg" alt="Mapa Mundial"
-            style="width: 100%; max-width: 600px; border-radius: 12px; display: block; margin: auto;">
-
-          <!-- Pines con icono igual que la lista -->
-          <div class="map-pin" style="top: 32%; left: 25%;"><i class="fas fa-map-marker-alt"></i> Canadá</div>
-          <div class="map-pin" style="top: 58%; left: 28%;"><i class="fas fa-map-marker-alt"></i> México</div>
-          <div class="map-pin" style="top: 82%; left: 39%;"><i class="fas fa-map-marker-alt"></i> Argentina</div>
-          <div class="map-pin" style="top: 44%; left: 54%;"><i class="fas fa-map-marker-alt"></i> España</div>
-          <div class="map-pin" style="top: 42%; left: 62%;"><i class="fas fa-map-marker-alt"></i> Austria</div>
-          <div class="map-pin" style="top: 32%; left: 56%;"><i class="fas fa-map-marker-alt"></i> Noruega</div>
-          <div class="map-pin" style="top: 43%; left: 61%;"><i class="fas fa-map-marker-alt"></i> Francia</div>
-          <div class="map-pin" style="top: 45%; left: 60%;"><i class="fas fa-map-marker-alt"></i> Holanda</div>
-          <div class="map-pin" style="top: 48%; left: 52%;"><i class="fas fa-map-marker-alt"></i> Portugal</div>
-          <div class="map-pin" style="top: 52%; left: 62%;"><i class="fas fa-map-marker-alt"></i> Turquía</div>
-          <div class="map-pin" style="top: 58%; left: 78%;"><i class="fas fa-map-marker-alt"></i> Emiratos Árabes Unidos
+          <!-- MISIÓN -->
+          <div class="values-card">
+            <h3 data-key="misionTitle">Misión</h3>
+            <p data-key="misionDescription">
+              Ser una compañía de servicios sólida que brinde consistentemente un servicio excepcional a todos
+              nuestros clientes, impulsando el crecimiento y desarrollo de clientes, empleados y colaboradores a través
+              de la
+              recuperación de su cartera vencida.
+            </p>
           </div>
-          <div class="map-pin" style="top: 60%; left: 65%;"><i class="fas fa-map-marker-alt"></i> Kuwait</div>
-          <div class="map-pin" style="top: 51%; left: 81%;"><i class="fas fa-map-marker-alt"></i> China</div>
-          <div class="map-pin" style="top: 55%; left: 82%;"><i class="fas fa-map-marker-alt"></i> Hong Kong</div>
-          <div class="map-pin" style="top: 58%; left: 84%;"><i class="fas fa-map-marker-alt"></i> Japón</div>
 
+          <!-- VISIÓN -->
+          <div class="values-card">
+            <h3 data-key="visionTitle">Visión</h3>
+            <p data-key="visionDescription">
+              Somos una empresa de servicios de primera clase en mejora continua,
+              capaz de establecer una relación cercana con los clientes, personal y
+              sociedad para contribuir al desarrollo global.
+            </p>
+          </div>
+
+          <!-- VALORES -->
+          <div class="values-card">
+            <h3 data-key="valoresTitle">Valores</h3>
+            <ul>
+              <li data-key="valoresHonestidad"><strong>Honestidad:</strong> Total transparencia en el actuar y previa
+                autorización de nuestros clientes.</li>
+              <li data-key="valoresResponsabilidad"><strong>Responsabilidad:</strong> Reconocemos el esfuerzo individual
+                de nuestros colaboradores y cumplimos las necesidades de cada cliente.</li>
+              <li data-key="valoresEnfoqueCliente"><strong>Enfoque al Cliente:</strong> Nuestro principal objetivo es
+                satisfacer a todos nuestros clientes excediendo sus expectativas.</li>
+            </ul>
+          </div>
 
         </div>
       </div>
     </section>
+
+    <section id="mapa" class="global-map fade-in" data-aos="fade-up" role="region"
+     aria-label="Mapa interactivo de presencia internacional de Impulsora de Recuperación Crediticia">
+      <h2 class="values-section-title" data-key="mapaTituloPrincipal">
+        Presencia Global
+      </h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle" data-key="subMapaSubtitle">
+        Mas de 15 países donde hemos colaborado y dejado huella internacional.
+      </p>
+
+
+      <div class="map-layout">
+        <div id="map"></div>
+
+        <ul class="map-country-list">
+          <li>Canadá</li>
+          <li>México</li>
+          <li>Argentina</li>
+          <li>España</li>
+          <li>Austria</li>
+          <li>Noruega</li>
+          <li>Francia</li>
+          <li>Holanda</li>
+          <li>Portugal</li>
+          <li>Turquía</li>
+          <li>Emiratos Árabes Unidos</li>
+          <li>Kuwait</li>
+          <li>China</li>
+          <li>Hong Kong</li>
+          <li>Japón</li>
+        </ul>
+      </div>
+    </section>
+
+
 
     <!-- Sección Contacto -->
     <section id="contacto" class="contact fade-in" data-aos="fade-up">
       <div class="contact-container">
 
         <!-- Texto izquierdo -->
-    <div class="contact-text">
-      <h2 data-key="contactFormTitle">COMPLETA EL FORMULARIO</h2>
-      <p data-key="contactFormSubtitle">Nos pondremos en contacto contigo en breve.</p>
-    
-      <ul class="contact-steps">
-        <li>
-          <img src="Imagenes/icons8-formulario.svg" alt="Formulario">
-          <span data-key="contactStep1">Solo necesitas llenar el formulario.</span>
-        </li>
-        <li>
-          <img src="Imagenes/icons8-teléfono.svg" alt="Llamada">
-          <span data-key="contactStep2">Te llamaremos en breve.</span>
-        </li>
-        <li>
-          <img src="Imagenes/icons8-contacto-50 (1).svg" alt="Seguridad">
-          <span data-key="contactStep3">Empieza a recuperar lo tuyo ahora.</span>
-        </li>
-      </ul>
-    </div>
+        <div class="contact-text">
+          <h2 data-key="contactFormTitle">COMPLETA EL FORMULARIO</h2>
+          <p data-key="contactFormSubtitle">Nos pondremos en contacto contigo en breve.</p>
+
+          <ul class="contact-steps">
+            <li>
+              <img src="Imagenes/icons8-formulario-64.png" alt="Formulario">
+              <span data-key="contactStep1">Solo necesitas llenar el formulario.</span>
+            </li>
+            <li>
+              <img src="Imagenes/icons8-contacto-40.png" alt="Llamada">
+              <span data-key="contactStep2">Te llamaremos en breve.</span>
+            </li>
+            <li>
+              <img src="Imagenes/icons8-trato-32.png" alt="Seguridad">
+              <span data-key="contactStep3">Empieza a recuperar lo tuyo ahora.</span>
+            </li>
+          </ul>
+        </div>
 
 
         <!-- Imagen central -->
@@ -497,49 +492,76 @@
 
     <!-- Footer -->
     <footer role="contentinfo" class="footer" data-aos="fade-up">
-      <div class="footer-container">
+  <div class="footer-container">
 
-        <!-- Lado Izquierdo: Marca, descripción, redes y enlaces -->
-        <div class="footer-left">
-          <img src="Imagenes/logo-removebg-preview.png" alt="Impulsora de Recuperación Crediticia"
-            style="max-width: 150px; margin-bottom: 10px;">
-          <h3 data-key="companyNameFooter">Impulsora de Recuperación Crediticia</h3>
-          <p class="footer-subtitle" data-key="footerSubtitle">Especialistas en cobranza extrajudicial y recuperación de cartera.</p>
+    <!-- Lado Izquierdo: Marca, descripción, redes y enlaces -->
+    <div class="footer-left">
+      <img src="Imagenes/logo-removebg-preview.png"
+           alt="Impulsora de Recuperación Crediticia, especialistas en cobranza extrajudicial y recuperación de cartera"
+           style="max-inline-size: 150px; margin-block-end: 10px;">
 
-          <!-- Redes Sociales -->
-          <div class="footer-social">
-            <a href="https://www.linkedin.com/in/thor-robledo-sandoval-750624b7" target="_blank" aria-label="LinkedIn">
-              <img src="Imagenes/linkedin.png" alt="LinkedIn">
-            </a>
-            <a href="https://wa.me/529982160639" target="_blank" aria-label="WhatsApp">
-              <img src="Imagenes/whatsapp.png" alt="WhatsApp">
-            </a>
-          </div>
+      <h3 data-key="companyNameFooter">
+        Impulsora de Recuperación Crediticia
+      </h3>
 
-          <!-- Enlaces Rápidos -->
-          <div class="footer-quick-links">
-            <ul>
-              <li><a href="blog.html" data-key="footerBlog">Blog</a></li>
-              <li><a href="#" data-key="footerGallery">Galería</a></li>
-            </ul>
-          </div>
+      <p class="footer-subtitle" data-key="footerSubtitle">
+        Especialistas en cobranza extrajudicial y recuperación de cartera.
+      </p>
 
-          <p class="footer-copy" data-key="footerCopy">© 2026 Todos los derechos reservados.</p>
-        </div>
+      <!-- Redes Sociales -->
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/thor-robledo-sandoval-750624b7"
+           target="_blank"
+           aria-label="LinkedIn de Impulsora de Recuperación Crediticia">
+          <img src="Imagenes/linkedin.png" alt="LinkedIn">
+        </a>
 
-        <!-- Lado Derecho: Navegación -->
-        <div class="footer-right">
-          <h4 data-key="footerNavigation">Navegación</h4>
-          <ul>
-            <li><a href="#inicio" data-key="navInicio">Inicio</a></li>
-            <li><a href="#nosotros" data-key="navNosotros">Nosotros</a></li>
-            <li><a href="#servicios" data-key="navServicios">Servicios</a></li>
-            <li><a href="#clientes" data-key="navClientes">Clientes</a></li>
-          </ul>
-        </div>
-
+        <a href="https://wa.me/529982160639"
+           target="_blank"
+           aria-label="WhatsApp de Impulsora de Recuperación Crediticia">
+          <img src="Imagenes/whatsapp.png" alt="WhatsApp">
+        </a>
       </div>
-    </footer>
+
+      <!-- Enlaces Rápidos -->
+      <div class="footer-quick-links">
+        <ul>
+          <li><a href="blog.html" data-key="footerBlog">Blog</a></li>
+          <li><a href="#" data-key="footerGallery">Galería</a></li>
+        </ul>
+      </div>
+
+      <!-- Idiomas -->
+      <p class="footer-languages">
+        Idioma:
+        <span>ES</span> |
+        <span>EN</span> |
+        <span>PT</span>
+      </p>
+
+      <!-- Micro-copy de confianza -->
+      <p class="footer-trust">
+        Atención ética, profesional y confidencial.
+      </p>
+
+      <p class="footer-copy" data-key="footerCopy">
+        © 2026 Todos los derechos reservados.
+      </p>
+    </div>
+
+    <!-- Lado Derecho: Navegación -->
+    <div class="footer-right">
+      <h4 data-key="footerNavigation">Navegación</h4>
+      <ul>
+        <li><a href="#inicio" data-key="navInicio">Inicio</a></li>
+        <li><a href="#nosotros" data-key="navNosotros">Nosotros</a></li>
+        <li><a href="#servicios" data-key="navServicios">Servicios</a></li>
+        <li><a href="#clientes" data-key="navClientes">Clientes</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>
 
   </main>
   <!-- Scripts -->
@@ -550,5 +572,36 @@
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js">
 </script>
 
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js">
+</script>
+<script>
+  const map = L.map('map').setView([20, 0], 2);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+  }).addTo(map);
+
+  const ubicaciones = [
+    { pais: 'Canadá', coords: [45.4215, -75.6995] },
+    { pais: 'México', coords: [19.4326, -99.1332] },
+    { pais: 'Argentina', coords: [-34.6037, -58.3816] },
+    { pais: 'España', coords: [40.4168, -3.7038] },
+    { pais: 'Austria', coords: [48.2082, 16.3738] },
+    { pais: 'Noruega', coords: [59.9139, 10.7522] },
+    { pais: 'Francia', coords: [48.8566, 2.3522] },
+    { pais: 'Holanda', coords: [52.3676, 4.9041] },
+    { pais: 'Portugal', coords: [38.7169, -9.1399] },
+    { pais: 'Turquía', coords: [41.0082, 28.9784] },
+    { pais: 'Emiratos Árabes Unidos', coords: [25.276987, 55.296249] },
+    { pais: 'Kuwait', coords: [29.3759, 47.9774] },
+    { pais: 'China', coords: [39.9042, 116.4074] },
+    { pais: 'Hong Kong', coords: [22.3193, 114.1694] },
+    { pais: 'Japón', coords: [35.6762, 139.6503] }
+  ];
+
+  ubicaciones.forEach((u) => {
+    L.marker(u.coords).addTo(map).bindPopup(`<strong>${u.pais}</strong>`);
+  });
+</script>
 
 </html>

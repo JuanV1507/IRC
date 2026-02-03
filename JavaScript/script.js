@@ -55,7 +55,7 @@ const translations = {
     heroButton: "Contáctanos",
     heroLearnMore: "Conocer servicios",
 
-    aboutTitle: "Sobre Nosotros",
+    aboutTitle: "Nuestra trayectoria",
     aboutDescription:
       "En el año 2005 la Lic. Refugio Sandoval Santana fundó una firma de abogados en México, ofreciendo servicios legales de tipo mercantil, fiscal, cobranza extrajudicial, recuperación de cartera vencida y solución de disputas abarcando la zona centro y norte del país. En el año 2010 con la reciente participación comercial y relaciones industriales del Ing. Thor Robledo, se ofrecen los mismos servicios en todo el continente americano contando con un amplio equipo de asesores, gestores y colaboradores a lo largo del continente. En el año 2015 se comienzan a ofrecer nuestros servicios a nivel global.",
 
@@ -157,7 +157,7 @@ const translations = {
     heroButton: "Contact Us",
     heroLearnMore: "View services",
 
-    aboutTitle: "About Us",
+    aboutTitle: "Our Track Record",
     aboutDescription:
       "In 2005, Lic. Refugio Sandoval Santana founded a law firm in Mexico, offering legal services in commercial, tax, extrajudicial collection and portfolio recovery. In 2010, with Eng. Thor Robledo’s participation, services expanded across the American continent. In 2015, services began to be offered globally.",
 
@@ -385,3 +385,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
