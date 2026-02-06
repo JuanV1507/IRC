@@ -1,494 +1,481 @@
-/**
- * CONTADOR GLOBAL DE VISITAS CON PHP
- * Para Impulsora de Recuperación Crediticia
- * Versión 2.0 - Con backend PHP
- */
+// visit-counter.js - Contador con CountAPI + OFFSETS
 
-class GlobalVisitCounter {
-    constructor() {
-        // Configuración
-        this.config = {
-            apiUrl: 'api/visits.php',
-            updateInterval: 30000, // 30 segundos para actualizar UI
-            sessionTimeout: 1800000, // 30 minutos para nueva sesión
-            useLocalFallback: true,
-            debug: false
-        };
-        
-        // Estado
-        this.stats = {
-            total: 0,
-            unique: 0,
-            today: 0,
-            yesterday: 0,
-            month: 0,
-            daily_average: 0,
-            peak_day: { date: '', count: 0 }
-        };
-        
-        // Cache local
-        this.localCache = {
-            lastApiCall: 0,
-            lastVisit: this.getLastVisitTime(),
-            cachedStats: null
-        };
-        
-        // Inicializar
-        this.init();
-    }
+//  CONFIGURACIÓN 
+const CONFIG = {
+    namespace: 'ircdebtrecovery',      
+    keyTotal: 'visitas-totales',
+    keyToday: 'visitas-hoy',
+    keyUnique: 'visitas-unicas',
     
-    /**
-     * Inicializar contador
-     */
-    async init() {
-        try {
-            // 1. Registrar visita si es necesario
-            if (this.shouldRegisterVisit()) {
-                await this.registerVisit();
-            }
-            
-            // 2. Cargar estadísticas
-            await this.loadStats();
-            
-            // 3. Actualizar UI
-            this.updateUI();
-            
-            // 4. Animar números
-            setTimeout(() => this.animateCounters(), 500);
-            
-            // 5. Actualizar periódicamente
-            this.startAutoUpdate();
-            
-            if (this.config.debug) {
-                console.log('✅ Contador global inicializado', this.stats);
-            }
-            
-        } catch (error) {
-            console.error('❌ Error inicializando contador:', error);
-            this.useFallback();
-        }
-    }
+    // NUEVO: OFFSETS PERSONALIZABLES 
+    offsets: {
+        total: 1250,      
+        today: 0,         
+        unique: 0         
+    },
     
-    /**
-     * Verificar si debe registrar visita
-     */
-    shouldRegisterVisit() {
-        // Si nunca ha visitado, sí registrar
-        if (!this.localCache.lastVisit) return true;
-        
-        // Si pasó más del tiempo de sesión, registrar
-        const now = Date.now();
-        const elapsed = now - this.localCache.lastVisit;
-        return elapsed > this.config.sessionTimeout;
-    }
+    // Activar/desactivar offsets
+    useOffsets: true,     // true = mostrar CountAPI + offset | false = solo CountAPI
     
-    /**
-     * Registrar visita en el servidor
-     */
-    async registerVisit() {
-        try {
-            const response = await this.callApi();
-            
-            if (response && response.success) {
-                // Actualizar tiempo de última visita
-                this.setLastVisitTime();
-                
-                // Actualizar estadísticas
-                this.updateStats(response.data);
-                
-                if (this.config.debug) {
-                    console.log('✅ Visita registrada:', response);
-                }
-                
-                return response;
-            }
-            
-            throw new Error('API response not successful');
-            
-        } catch (error) {
-            if (this.config.debug) {
-                console.warn('⚠️ Falló registro en API, usando fallback:', error);
-            }
-            
-            if (this.config.useLocalFallback) {
-                this.useLocalFallback();
-            }
-            
-            return null;
-        }
-    }
+    // Backup local si falla la API
+    useLocalBackup: true
+};
+
+// URLs de CountAPI
+const API_URLS = {
+    hitTotal: `https://api.countapi.xyz/hit/${CONFIG.namespace}/${CONFIG.keyTotal}`,
+    getTotal: `https://api.countapi.xyz/get/${CONFIG.namespace}/${CONFIG.keyTotal}`,
     
-    /**
-     * Cargar estadísticas (sin registrar visita)
-     */
-    async loadStats() {
-        try {
-            // Usar cache si es reciente
-            const now = Date.now();
-            if (this.localCache.cachedStats && 
-                (now - this.localCache.lastApiCall) < 30000) {
-                this.updateStats(this.localCache.cachedStats);
-                return;
-            }
-            
-            // Llamar API solo para obtener stats
-            const response = await this.callApi('get');
-            
-            if (response && response.success) {
-                this.updateStats(response.data);
-                this.localCache.cachedStats = response.data;
-                this.localCache.lastApiCall = now;
-            }
-            
-        } catch (error) {
-            console.warn('⚠️ Error cargando estadísticas:', error);
-            this.useFallback();
-        }
-    }
+    hitToday: `https://api.countapi.xyz/hit/${CONFIG.namespace}/${CONFIG.keyToday}`,
+    getToday: `https://api.countapi.xyz/get/${CONFIG.namespace}/${CONFIG.keyToday}`,
     
-    /**
-     * Llamar a la API
-     */
-    async callApi(action = 'register') {
-        const url = new URL(this.config.apiUrl, window.location.origin);
-        url.searchParams.append('action', action);
+    hitUnique: `https://api.countapi.xyz/hit/${CONFIG.namespace}/${CONFIG.keyUnique}`,
+    getUnique: `https://api.countapi.xyz/get/${CONFIG.namespace}/${CONFIG.keyUnique}`
+};
+
+// IDs de los elementos en tu footer
+const ELEMENT_IDS = {
+    totalVisits: 'total-visits',
+    todayVisits: 'today-visits',
+    uniqueVisits: 'unique-visits',
+    monthVisits: 'month-visits',
+    lastUpdated: 'last-updated',
+    apiStatus: 'api-status',
+    debugInfo: 'debug-info'
+};
+
+// Estado del contador (solo para referencia interna)
+let stats = {
+    total: 0,        // Valor REAL de CountAPI
+    today: 0,
+    unique: 0,
+    month: 0
+};
+
+// ⬇️ NUEVO: Estado con offsets aplicados
+let displayedStats = {
+    total: 0,        // Valor MOSTRADO (CountAPI + offset)
+    today: 0,
+    unique: 0
+};
+
+//FUNCIÓN PARA OBTENER DATOS DE COUNTAPI
+async function fetchCountAPI(url, isHit = false) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`API error: ${response.status}`);
         
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const data = await response.json();
         
-        try {
-            const response = await fetch(url.toString(), {
-                method: 'GET',
-                signal: controller.signal,
-                headers: {
-                    'Accept': 'application/json',
-                    'Cache-Control': 'no-cache'
-                }
-            });
-            
-            clearTimeout(timeoutId);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-            
-            return await response.json();
-            
-        } catch (error) {
-            clearTimeout(timeoutId);
-            throw error;
-        }
-    }
-    
-    /**
-     * Actualizar estadísticas internas
-     */
-    updateStats(apiData) {
-        this.stats = {
-            total: apiData.total || 0,
-            unique: apiData.unique || 0,
-            today: apiData.today || 0,
-            yesterday: apiData.yesterday || 0,
-            month: apiData.month || 0,
-            daily_average: apiData.daily_average || 0,
-            peak_day: apiData.peak_day || { date: '', count: 0 },
-            start_date: apiData.start_date || '',
-            last_updated: apiData.last_updated || ''
-        };
-    }
-    
-    /**
-     * Actualizar interfaz de usuario
-     */
-    updateUI() {
-        // Elementos principales
-        this.updateElement('total-visits', this.stats.total);
-        this.updateElement('today-visits', this.stats.today);
-        this.updateElement('unique-visits', this.stats.unique);
-        
-        // Elementos adicionales (si existen)
-        this.updateElement('yesterday-visits', this.stats.yesterday);
-        this.updateElement('month-visits', this.stats.month);
-        this.updateElement('average-visits', this.stats.daily_average);
-        
-        // Actualizar título con contador
-        this.updatePageTitle();
-        
-        // Actualizar tooltips con info adicional
-        this.updateTooltips();
-    }
-    
-    /**
-     * Actualizar elemento específico
-     */
-    updateElement(elementId, value) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            const formattedValue = this.formatNumber(value);
-            if (element.textContent !== formattedValue) {
-                element.textContent = formattedValue;
-                element.classList.add('updated');
-                setTimeout(() => element.classList.remove('updated'), 1000);
-            }
-        }
-    }
-    
-    /**
-     * Formatear número con separadores
-     */
-    formatNumber(num) {
-        return new Intl.NumberFormat('es-MX').format(num);
-    }
-    
-    /**
-     * Animar contadores
-     */
-    animateCounters() {
-        const counters = document.querySelectorAll('.stat-number');
-        
-        counters.forEach(counter => {
-            const currentValue = parseInt(counter.textContent.replace(/,/g, '') || '0');
-            const targetValue = parseInt(counter.getAttribute('data-target') || currentValue);
-            
-            if (currentValue !== targetValue) {
-                this.animateValue(counter, currentValue, targetValue, 1500);
-                counter.setAttribute('data-target', targetValue);
-            }
-        });
-    }
-    
-    /**
-     * Animación suave de números
-     */
-    animateValue(element, start, end, duration) {
-        if (start === end) return;
-        
-        const range = end - start;
-        const startTime = Date.now();
-        
-        const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
-        
-        const update = () => {
-            const now = Date.now();
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = easeOutCubic(progress);
-            const value = Math.floor(start + (range * eased));
-            
-            element.textContent = this.formatNumber(value);
-            
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            } else {
-                element.textContent = this.formatNumber(end);
-            }
-        };
-        
-        requestAnimationFrame(update);
-    }
-    
-    /**
-     * Usar fallback local
-     */
-    useLocalFallback() {
-        const localStats = this.getLocalStats();
-        this.stats.total = localStats.total;
-        this.stats.today = localStats.today;
-        this.stats.unique = localStats.unique;
-        
-        // Guardar para siguiente vez
-        this.saveLocalStats();
-    }
-    
-    /**
-     * Fallback completo (cuando todo falla)
-     */
-    useFallback() {
-        // Intentar cargar de localStorage
-        const saved = localStorage.getItem('irc_visit_fallback');
-        if (saved) {
-            this.stats = JSON.parse(saved);
+        // Verificar si la respuesta es válida
+        if (data && typeof data.value !== 'undefined') {
+            return data.value;
         } else {
-            // Valores por defecto (puedes personalizar)
-            this.stats = {
-                total: 1275,
-                unique: 892,
-                today: 45,
-                yesterday: 38,
-                month: 324,
-                daily_average: 42
-            };
+            throw new Error('Respuesta inválida de CountAPI');
+        }
+    } catch (error) {
+        console.error('Error fetching CountAPI:', error);
+        
+        // Usar backup local si está configurado
+        if (CONFIG.useLocalBackup) {
+            const backupKey = isHit ? 'hit' : 'get';
+            const localValue = localStorage.getItem(`countapi_backup_${backupKey}`);
+            return localValue ? parseInt(localValue) : 0;
         }
         
-        this.updateUI();
-    }
-    
-    /**
-     * Obtener estadísticas locales
-     */
-    getLocalStats() {
-        const today = new Date().toISOString().split('T')[0];
-        const saved = localStorage.getItem('irc_local_visits');
-        
-        if (saved) {
-            const data = JSON.parse(saved);
-            
-            // Resetear si es nuevo día
-            if (data.date !== today) {
-                data.yesterday = data.today;
-                data.today = 0;
-                data.date = today;
-            }
-            
-            data.today++;
-            data.total++;
-            
-            return data;
-        }
-        
-        // Crear nuevo
-        return {
-            date: today,
-            total: 1,
-            today: 1,
-            unique: 1,
-            yesterday: 0
-        };
-    }
-    
-    /**
-     * Guardar estadísticas locales
-     */
-    saveLocalStats() {
-        const data = {
-            date: new Date().toISOString().split('T')[0],
-            total: this.stats.total,
-            today: this.stats.today,
-            unique: this.stats.unique,
-            last_updated: new Date().toISOString()
-        };
-        
-        localStorage.setItem('irc_local_visits', JSON.stringify(data));
-        localStorage.setItem('irc_visit_fallback', JSON.stringify(this.stats));
-    }
-    
-    /**
-     * Obtener tiempo de última visita
-     */
-    getLastVisitTime() {
-        return parseInt(localStorage.getItem('irc_last_visit') || '0');
-    }
-    
-    /**
-     * Establecer tiempo de última visita
-     */
-    setLastVisitTime() {
-        localStorage.setItem('irc_last_visit', Date.now().toString());
-        this.localCache.lastVisit = Date.now();
-    }
-    
-    /**
-     * Actualizar título de página
-     */
-    updatePageTitle() {
-        // Opcional: Agregar contador al título
-        // document.title = `(${this.formatNumber(this.stats.total)}) ${document.title}`;
-    }
-    
-    /**
-     * Actualizar tooltips
-     */
-    updateTooltips() {
-        // Agregar tooltips informativos
-        const elements = {
-            'total-visits': `Total de visitas desde ${this.stats.start_date || 'el inicio'}`,
-            'today-visits': `Visitas hoy • Ayer: ${this.formatNumber(this.stats.yesterday)}`,
-            'unique-visits': `Visitantes únicos • Promedio diario: ${this.formatNumber(this.stats.daily_average)}`
-        };
-        
-        Object.entries(elements).forEach(([id, title]) => {
-            const element = document.getElementById(id);
-            if (element && !element.title) {
-                element.title = title;
-            }
-        });
-    }
-    
-    /**
-     * Iniciar actualización automática
-     */
-    startAutoUpdate() {
-        setInterval(() => {
-            this.loadStats().then(() => {
-                this.updateUI();
-            });
-        }, this.config.updateInterval);
-    }
-    
-    /**
-     * Obtener estadísticas (para debugging o uso externo)
-     */
-    getStats() {
-        return { ...this.stats };
-    }
-    
-    /**
-     * Exportar estadísticas
-     */
-    exportStats() {
-        return JSON.stringify({
-            stats: this.stats,
-            cache: this.localCache,
-            config: this.config
-        }, null, 2);
+        throw error;
     }
 }
 
-// ==============================================
-// INICIALIZACIÓN GLOBAL
-// ==============================================
-
-// Variable global para acceso desde consola
-window.VisitCounter = null;
-
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    // Crear instancia global
-    window.VisitCounter = new GlobalVisitCounter();
+// FUNCIÓN PARA APLICAR OFFSETS
+function applyOffset(type, apiValue) {
+    if (!CONFIG.useOffsets || !CONFIG.offsets[type]) {
+        return apiValue; // Sin offset
+    }
     
-    // Exponer métodos útiles para debugging
-    if (window.location.search.includes('debug=visits')) {
-        window.debugVisits = {
-            getStats: () => window.VisitCounter?.getStats(),
-            export: () => window.VisitCounter?.exportStats(),
-            forceUpdate: () => window.VisitCounter?.loadStats(),
-            resetLocal: () => {
-                localStorage.removeItem('irc_last_visit');
-                localStorage.removeItem('irc_local_visits');
-                console.log('✅ Cache local reseteado');
+    const offset = CONFIG.offsets[type];
+    const valueWithOffset = apiValue + offset;
+    
+    // Guardar ambos valores para referencia
+    stats[type] = apiValue;               // Valor REAL
+    displayedStats[type] = valueWithOffset; // Valor MOSTRADO
+    
+    // Debug info (solo visible en consola)
+    if (window.location.search.includes('debug=countapi')) {
+        console.log(`📊 ${type.toUpperCase()}: CountAPI=${apiValue} + Offset=${offset} = ${valueWithOffset}`);
+    }
+    
+    return valueWithOffset;
+}
+
+// ACTUALIZAR UNA ESTADÍSTICA ESPECÍFICA (MODIFICADA)
+async function updateStatistic(type, isIncrement = true) {
+    const urls = {
+        'total': { hit: API_URLS.hitTotal, get: API_URLS.getTotal },
+        'today': { hit: API_URLS.hitToday, get: API_URLS.getToday },
+        'unique': { hit: API_URLS.hitUnique, get: API_URLS.getUnique }
+    };
+    
+    if (!urls[type]) return;
+    
+    try {
+        let apiValue;
+        
+        if (isIncrement) {
+            // Incrementar el contador en CountAPI
+            apiValue = await fetchCountAPI(urls[type].hit, true);
+            
+            // Guardar backup local del valor REAL
+            localStorage.setItem(`countapi_backup_${type}`, apiValue.toString());
+            localStorage.setItem(`countapi_backup_hit`, apiValue.toString());
+        } else {
+            // Solo obtener el valor actual de CountAPI
+            apiValue = await fetchCountAPI(urls[type].get, false);
+        }
+        
+        //  NUEVO: Aplicar offset si está activado
+        const displayedValue = applyOffset(type, apiValue);
+        
+        // Actualizar objeto de estadísticas REALES
+        stats[type] = apiValue;
+        
+        // Actualizar la UI con el valor mostrado (con offset)
+        updateStatUI(type, displayedValue);
+        
+        return displayedValue;
+    } catch (error) {
+        console.error(`Error updating ${type}:`, error);
+        
+        // Usar valor local como fallback (con offset aplicado)
+        const localValue = localStorage.getItem(`countapi_backup_${type}`);
+        const apiValue = localValue ? parseInt(localValue) : 0;
+        const displayedValue = applyOffset(type, apiValue);
+        
+        updateStatUI(type, displayedValue);
+        return displayedValue;
+    }
+}
+
+// ACTUALIZAR INTERFAZ DE USUARIO (MODIFICADA PARA ANIMACIÓN MEJORADA)
+function updateStatUI(type, value) {
+    const elementId = ELEMENT_IDS[`${type}Visits`] || `${type}-visits`;
+    const element = document.getElementById(elementId);
+    
+    if (element) {
+        // Formatear número con separadores de miles
+        const formattedValue = value.toLocaleString('es-MX');
+        
+        // Obtener valor actual del elemento (lo que ya está mostrando)
+        const currentText = element.textContent || '0';
+        const currentValue = parseInt(currentText.replace(/[^0-9]/g, '')) || 0;
+        
+        // Solo animar si el valor cambió
+        if (currentValue !== value) {
+            animateCounter(element, currentValue, value);
+        } else {
+            // Solo actualizar el texto si no hay animación
+            element.textContent = formattedValue;
+        }
+        
+        //  NUEVO: Mostrar tooltip con info real vs mostrada (solo debug)
+        if (window.location.search.includes('debug=countapi')) {
+            element.title = `Real: ${stats[type].toLocaleString()} | Mostrado: ${value.toLocaleString()} | Offset: ${CONFIG.offsets[type] || 0}`;
+        }
+    }
+}
+
+//  ANIMACIÓN DE CONTEO (MEJORADA)
+function animateCounter(element, start, end) {
+    // Limpiar animación anterior si existe
+    if (element._animationTimer) {
+        clearInterval(element._animationTimer);
+    }
+    
+    const duration = 800; // 0.8 segundos
+    const steps = 25;
+    const increment = (end - start) / steps;
+    let current = start;
+    let step = 0;
+    
+    element._animationTimer = setInterval(() => {
+        current += increment;
+        step++;
+        
+        if (step >= steps) {
+            current = end;
+            clearInterval(element._animationTimer);
+            delete element._animationTimer;
+        }
+        
+        // Redondear y formatear
+        const rounded = Math.round(current);
+        element.textContent = rounded.toLocaleString('es-MX');
+    }, duration / steps);
+}
+
+// ACTUALIZAR MARCA DE TIEMPO
+function updateTimestamp() {
+    const now = new Date();
+    const element = document.getElementById(ELEMENT_IDS.lastUpdated);
+    
+    if (element) {
+        // Formato: "HH:MM:SS"
+        const timeString = now.toLocaleTimeString('es-MX', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        element.textContent = timeString;
+    }
+}
+
+//NICIALIZAR TODAS LAS ESTADÍSTICAS (MODIFICADA)
+async function initAllStats() {
+    try {
+        // Obtener valores actuales de CountAPI (sin incrementar)
+        const [totalAPI, todayAPI, uniqueAPI] = await Promise.all([
+            fetchCountAPI(API_URLS.getTotal, false),
+            fetchCountAPI(API_URLS.getToday, false),
+            fetchCountAPI(API_URLS.getUnique, false)
+        ]);
+        
+        // Aplicar offsets a cada valor
+        const totalDisplayed = applyOffset('total', totalAPI);
+        const todayDisplayed = applyOffset('today', todayAPI);
+        const uniqueDisplayed = applyOffset('unique', uniqueAPI);
+        
+        // Actualizar UI con valores mostrados (con offsets)
+        updateStatUI('total', totalDisplayed);
+        updateStatUI('today', todayDisplayed);
+        updateStatUI('unique', uniqueDisplayed);
+        
+        // Actualizar estadísticas del mes (simulado con offset)
+        const monthElement = document.getElementById(ELEMENT_IDS.monthVisits);
+        if (monthElement) {
+            // Simular visitas del mes (25% de las totales mostradas)
+            const monthValue = Math.floor(totalDisplayed * 0.25);
+            stats.month = monthValue;
+            monthElement.textContent = monthValue.toLocaleString('es-MX');
+        }
+        
+        updateTimestamp();
+        updateAPIStatus('✅ Conectado a CountAPI');
+        
+        return { 
+            total: totalDisplayed, 
+            today: todayDisplayed, 
+            unique: uniqueDisplayed,
+            //  También devolver valores reales para debug
+            _real: {
+                total: totalAPI,
+                today: todayAPI,
+                unique: uniqueAPI
             }
         };
-        console.log('🔧 Debug de visitas activado. Usa window.debugVisits');
+    } catch (error) {
+        console.error('Error initializing stats:', error);
+        updateAPIStatus('⚠️ Usando datos locales');
+        
+        // Cargar valores de backup con offsets
+        loadLocalBackup();
+        return displayedStats;
     }
+}
+
+// CARGAR BACKUP LOCAL (MODIFICADA)
+function loadLocalBackup() {
+    const types = ['total', 'today', 'unique'];
     
-    // Detectar cambios de visibilidad
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible' && window.VisitCounter) {
-            // Recargar estadísticas cuando la página vuelve a ser visible
-            setTimeout(() => window.VisitCounter.loadStats(), 1000);
+    types.forEach(type => {
+        const localValue = localStorage.getItem(`countapi_backup_${type}`);
+        if (localValue) {
+            const apiValue = parseInt(localValue);
+            const displayedValue = applyOffset(type, apiValue);
+            updateStatUI(type, displayedValue);
         }
     });
+}
+
+//  ACTUALIZAR ESTADO DE LA API
+function updateAPIStatus(message) {
+    const statusElement = document.getElementById(ELEMENT_IDS.apiStatus);
+    if (statusElement) {
+        statusElement.textContent = message;
+    }
+}
+
+//  REGISTRAR NUEVA VISITA (MODIFICADA PARA OFFSETS)
+async function registerVisit() {
+    try {
+        // Verificar si ya se registró una visita en esta sesión
+        const sessionKey = 'irc_visit_registered';
+        if (sessionStorage.getItem(sessionKey)) {
+            return; // Ya se registró en esta sesión
+        }
+        
+        // Incrementar todas las estadísticas en CountAPI
+        // (los offsets se aplican automáticamente en updateStatistic)
+        await Promise.all([
+            updateStatistic('total', true),
+            updateStatistic('today', true),
+            updateStatistic('unique', true)
+        ]);
+        
+        // Marcar como visitado en esta sesión
+        sessionStorage.setItem(sessionKey, 'true');
+        
+        // Actualizar timestamp
+        updateTimestamp();
+        
+        //  NUEVO: Debug info
+        if (window.location.search.includes('debug=countapi')) {
+            console.log('✅ Visita registrada. Stats mostrados:', displayedStats);
+        }
+        
+    } catch (error) {
+        console.error('Error registrando visita:', error);
+    }
+}
+
+//  ACTUALIZAR ESTADÍSTICAS PERIÓDICAMENTE
+function startPeriodicUpdates() {
+    // Actualizar contador de "hoy" cada 5 minutos (sin incrementar)
+    setInterval(async () => {
+        try {
+            const todayAPI = await fetchCountAPI(API_URLS.getToday, false);
+            const todayDisplayed = applyOffset('today', todayAPI);
+            updateStatUI('today', todayDisplayed);
+            updateTimestamp();
+        } catch (error) {
+            console.log('Error actualizando contador hoy:', error);
+        }
+    }, 5 * 60 * 1000); // 5 minutos
+    
+    // Actualizar marca de tiempo cada 30 segundos
+    setInterval(updateTimestamp, 30 * 1000);
+}
+
+//  NUEVO: FUNCIÓN PARA ADMINISTRAR OFFSETS
+function setupAdminControls() {
+    // Solo mostrar controles si está en modo debug
+    if (window.location.search.includes('debug=countapi')) {
+        const adminDiv = document.createElement('div');
+        adminDiv.id = 'countapi-admin';
+        adminDiv.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 10000;
+            max-width: 300px;
+        `;
+        
+        adminDiv.innerHTML = `
+            <h4 style="margin-top: 0;">Admin CountAPI</h4>
+            <div style="margin-bottom: 10px;">
+                <label>Offset Total:</label>
+                <input type="number" id="offset-total" value="${CONFIG.offsets.total}" style="width: 80px; margin-left: 10px;">
+            </div>
+            <button onclick="updateOffsets()">Aplicar</button>
+            <button onclick="showRealStats()" style="margin-left: 10px;">Ver Reales</button>
+        `;
+        
+        document.body.appendChild(adminDiv);
+    }
+}
+
+//  NUEVO: ACTUALIZAR OFFSETS EN TIEMPO REAL
+window.updateOffsets = function() {
+    const totalInput = document.getElementById('offset-total');
+    if (totalInput) {
+        CONFIG.offsets.total = parseInt(totalInput.value) || 0;
+        
+        // Re-aplicar offsets a estadísticas actuales
+        const types = ['total', 'today', 'unique'];
+        types.forEach(type => {
+            if (stats[type] !== undefined) {
+                const displayedValue = applyOffset(type, stats[type]);
+                updateStatUI(type, displayedValue);
+            }
+        });
+        
+        alert(`✅ Offsets actualizados. Total ahora: ${CONFIG.offsets.total}`);
+    }
+};
+
+//  NUEVO: MOSTRAR ESTADÍSTICAS REALES
+window.showRealStats = function() {
+    console.log('📊 ESTADÍSTICAS REALES:');
+    console.log('- Total CountAPI:', stats.total);
+    console.log('- Hoy CountAPI:', stats.today);
+    console.log('- Únicos CountAPI:', stats.unique);
+    console.log('- Offset Total:', CONFIG.offsets.total);
+    console.log('- Mostrado Total:', displayedStats.total);
+};
+
+//  INICIALIZAR CONTADOR (MODIFICADA)
+async function initCounter() {
+    console.log('🚀 Inicializando contador de visitas...');
+    
+    // Mostrar información de debug si está activado
+    const debugElement = document.getElementById(ELEMENT_IDS.debugInfo);
+    if (debugElement && window.location.search.includes('debug=countapi')) {
+        debugElement.style.display = 'block';
+        setupAdminControls(); // ⬅️ NUEVO: Agregar controles admin
+    }
+    
+    try {
+        // Inicializar estadísticas (offsets se aplican automáticamente)
+        await initAllStats();
+        
+        // Registrar nueva visita (con retardo para evitar bloqueos)
+        setTimeout(registerVisit, 1500);
+        
+        // Iniciar actualizaciones periódicas
+        startPeriodicUpdates();
+        
+        console.log('✅ Contador inicializado correctamente');
+        
+        //  NUEVO: Mostrar info de offsets en consola
+        if (CONFIG.useOffsets) {
+            console.log(`🎯 Offsets activados: Total=${CONFIG.offsets.total}`);
+        }
+        
+    } catch (error) {
+        console.error('❌ Error inicializando contador:', error);
+    }
+}
+
+//  EXPORTAR FUNCIONES PARA USO GLOBAL (ACTUALIZADO)
+window.IRCVisitCounter = {
+    init: initCounter,
+    registerVisit: registerVisit,
+    getStats: () => displayedStats,     // Devuelve stats CON offset
+    getRealStats: () => stats,         //  Devuelve stats REALES
+    updateAllStats: initAllStats,
+    // Funciones para manejar offsets
+    setOffset: function(type, value) {
+        if (CONFIG.offsets[type] !== undefined) {
+            CONFIG.offsets[type] = value;
+            console.log(`Offset ${type} actualizado a ${value}`);
+        }
+    },
+    toggleOffsets: function() {
+        CONFIG.useOffsets = !CONFIG.useOffsets;
+        console.log(`Offsets ${CONFIG.useOffsets ? 'activados' : 'desactivados'}`);
+        initAllStats(); // Recargar stats
+    }
+};
+
+// AUTO-INICIALIZACIÓN CUANDO EL DOM ESTÉ LISTO
+document.addEventListener('DOMContentLoaded', function() {
+    // Esperar un poco para no bloquear la carga de la página
+    setTimeout(initCounter, 1000);
 });
 
-// Manejar errores no capturados
-window.addEventListener('error', (event) => {
-    if (event.message.includes('VisitCounter')) {
-        console.warn('Error en contador de visitas, usando fallback simple');
-        // Fallback simple
-        const elements = ['total-visits', 'today-visits', 'unique-visits'];
-        elements.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = '1,000+';
-        });
-    }
-});
+//  NUEVO: EXPORTAR CONFIG PARA ACCESO EXTERNO
+window.COUNTAPI_CONFIG = CONFIG;

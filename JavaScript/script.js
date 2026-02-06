@@ -4,7 +4,43 @@ AOS.init({
   easing: 'ease-out-cubic',
   once: true
 });
+// script.js - Agrega esto al PRINCIPIO del archivo
 
+// 🔧 CORRECCIÓN DE ERRORES
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar que los elementos existen antes de usarlos
+    const elementosRequeridos = [
+        'menu-toggle',
+        'mobile-nav',
+        'contactForm'
+        // Agrega otros IDs que uses
+    ];
+    
+    elementosRequeridos.forEach(id => {
+        if (!document.getElementById(id)) {
+            console.warn(`⚠️ Elemento #${id} no encontrado`);
+        }
+    });
+    
+    // Corregir línea 382 y 384 (las que dan error)
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    
+    if (menuToggle && mobileNav) {
+        // Tu código original de menú aquí
+        menuToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+        });
+    }
+    
+    // Manejo seguro del formulario
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            // Tu código original del formulario
+        });
+    }
+});
 // Función para animar números
 const animateCounter = (counter) => {
   const target = +counter.getAttribute("data-target");
@@ -113,8 +149,8 @@ const translations = {
       "Estamos listos para ayudarte a aumentar tu eficiencia en la cobranza y mantener relaciones comerciales sólidas.",
     ctaButton: "Solicita tu asesoría",
 
-    clientsTitle: "Clientes",
-    clientsSubtitle: "Nuestros principales clientes:",
+    clientsTitle: "Empresas que confían en Nosotros",
+    clientsSubtitle: "Colaboramos con instituciones líderes y empresas globales:",
 
     globalCoverageTitle: "Presencia Internacional",
     valoresTitle: "Nuestros Valores",
@@ -239,7 +275,12 @@ const translations = {
   footerTodayVisits: "Visits Today",
   footerUniqueVisitors: "Unique Visitors",
   footerThisMonth: "This Month",
-  footerUpdatedRealTime: "Updated in real time"
+  footerUpdatedRealTime: "Updated in real time",
+  statsTitle: "Website Statistics",
+  statsTotalLabel: "Total Visits",
+  statsTodayLabel: "Visits Today",
+  statsUniqueLabel: "Unique Visitors",
+  statsRealTime: "Updated in real-time"
 
 },
   chino: {
@@ -332,7 +373,12 @@ const translations = {
     footerSubtitle: "专门从事非司法催收和投资组合回收。",
     footerBlog: "博客",
     footerGallery: "图库",
-    footerCopy: "© 2026 版权所有。"
+    footerCopy: "© 2026 版权所有。",
+    statsTitle: "网站统计",
+    statsTotalLabel: "总访问量",
+    statsTodayLabel: "今日访问",
+    statsUniqueLabel: "独立访客",
+    statsRealTime: "实时更新"
   }
 };
 
@@ -602,4 +648,83 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+});
+// ===========================================
+// FUNCIONALIDAD MEJORADA PARA WHATSAPP FLOTANTE
+// ===========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    const whatsappButton = document.querySelector('.whatsapp-float');
+    
+    if (whatsappButton) {
+        // Configurar mensaje personalizado según la página
+        const phoneNumber = '529982160639'; // Tu número de WhatsApp
+        
+        // Detectar la sección actual para personalizar el mensaje
+        let defaultMessage = 'Hola, me gustaría obtener información sobre sus servicios de recuperación de cartera.';
+        
+        // Si estamos en la sección de contacto, mensaje más específico
+        if (window.location.hash === '#contacto') {
+            defaultMessage = 'Hola, quiero solicitar una asesoría sobre recuperación de cartera.';
+        }
+        
+        // Codificar el mensaje para URL
+        const encodedMessage = encodeURIComponent(defaultMessage);
+        
+        // Actualizar el enlace con mensaje personalizado
+        whatsappButton.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        
+        // Añadir efecto de "respiración" ocasional
+        let breatheInterval = setInterval(() => {
+            whatsappButton.style.animation = 'none';
+            setTimeout(() => {
+                whatsappButton.style.animation = 'pulse-whatsapp 2.5s infinite';
+            }, 10);
+        }, 15000); // Cada 15 segundos
+        
+        // Mostrar/ocultar botón al hacer scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Ocultar ligeramente al bajar, mostrar al subir
+            if (scrollTop > lastScrollTop) {
+                // Bajando - ocultar un poco
+                whatsappButton.style.opacity = '0.85';
+                whatsappButton.style.transform = 'scale(0.95)';
+            } else {
+                // Subiendo - mostrar completamente
+                whatsappButton.style.opacity = '1';
+                whatsappButton.style.transform = 'scale(1)';
+            }
+            lastScrollTop = scrollTop;
+        });
+        
+        // Efecto de clic
+        whatsappButton.addEventListener('click', function(e) {
+            // Agregar animación de clic
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Trackear clic en Google Analytics (si está configurado)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'whatsapp_click', {
+                    'event_category': 'Contacto',
+                    'event_label': 'Botón Flotante WhatsApp'
+                });
+            }
+        });
+        
+        // Ajustar posición en dispositivos móviles con teclado virtual
+        window.addEventListener('resize', function() {
+            if (window.innerHeight < 500) {
+                // Teclado probablemente abierto en móvil
+                whatsappButton.style.bottom = '10px';
+            } else {
+                whatsappButton.style.bottom = '25px';
+            }
+        });
+    }
 });

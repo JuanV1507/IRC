@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es,en,zh-Hans,zh-Hant">
 
 <head>
   <meta charset="UTF-8" />
@@ -71,61 +71,148 @@
   <link rel="icon" type="image/png" sizes="512x512" href="Imagenes/android-chrome-512x512.png">
   <link rel="manifest" href="site.webmanifest" />
 
-  <!-- DATOS ESTRUCTURADOS COMPLETOS Y CORRECTOS -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://ircdebtrecovery.com/#website",
-        "url": "https://ircdebtrecovery.com/",
-        "name": "International Recovery and Collection",
-        "description": "Especialistas en recuperación de cartera y cobranza extrajudicial internacional",
-        "inLanguage": "es"
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://ircdebtrecovery.com/es/#webpage",
-        "url": "https://ircdebtrecovery.com/es/",
-        "name": "Recuperación de Cartera y Cobranza Extrajudicial | IRC - México y USA",
-        "description": "Empresa líder en cobranza extrajudicial y recuperación de cartera vencida para México y Estados Unidos.",
-        "isPartOf": {"@id": "https://ircdebtrecovery.com/#website"},
-        "datePublished": "2025-01-01",
-        "dateModified": "2026-02-01",
-        "inLanguage": "es"
-      },
-      {
-        "@type": "LegalService",
-        "@id": "https://ircdebtrecovery.com/es/#service",
-        "name": "Cobranza Extrajudicial y Recuperación de Cartera",
-        "provider": {
-          "@type": "Organization",
-          "name": "Impulsora de Recuperación Crediticia",
-          "alternateName": "IRC",
-          "url": "https://ircdebtrecovery.com/es/",
-          "logo": "https://ircdebtrecovery.com/Imagenes/logo.webp",
-          "telephone": "+52 998 216 0639",
-          "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "MX",
-            "addressRegion": "Ciudad de México"
-          },
-          "areaServed": ["MX", "US"],
-          "sameAs": [
-            "https://www.linkedin.com/in/thor-robledo-sandoval-750624b7"
-          ]
-        },
-        "serviceType": "Debt Collection",
-        "description": "Servicios profesionales de cobranza extrajudicial y recuperación de cartera vencida para empresas en México y Estados Unidos.",
-        "offers": {
-          "@type": "Offer",
-          "category": "Legal and Financial Services"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "@type": "Organization",
+      "@id": "https://ircdebtrecovery.com/#organization",
+      "name": "Impulsora de Recuperación Crediticia",
+      "alternateName": "IRC Debt Recovery",
+      "url": "https://ircdebtrecovery.com/",
+      "logo": "https://ircdebtrecovery.com/Imagenes/logo.webp",
+      "telephone": "+52 998 216 0639",
+      "sameAs": [
+        "https://www.linkedin.com/in/thor-robledo-sandoval-750624b7"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+52 998 216 0639",
+        "contactType": "customer service",
+        "areaServed": ["MX","US"],
+        "availableLanguage": ["Spanish","English"]
       }
-    ]
-  }
-  </script>
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://ircdebtrecovery.com/#website",
+      "url": "https://ircdebtrecovery.com/",
+      "name": "IRC Debt Recovery",
+      "publisher": {
+        "@id": "https://ircdebtrecovery.com/#organization"
+      }
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://ircdebtrecovery.com/es/#webpage",
+      "url": "https://ircdebtrecovery.com/es/",
+      "name": "Cobranza Extrajudicial y Recuperación de Cartera | IRC",
+      "isPartOf": {
+        "@id": "https://ircdebtrecovery.com/#website"
+      },
+      "about": {
+        "@id": "https://ircdebtrecovery.com/#services"
+      },
+      "datePublished": "2025-01-01",
+      "dateModified": "2026-02-01",
+      "inLanguage": "es"
+    },
+
+    {
+      "@type": "ItemList",
+      "@id": "https://ircdebtrecovery.com/#services",
+      "name": "Servicios de Cobranza",
+      "itemListElement": [
+        {
+          "@type": "Service",
+          "position": 1,
+          "name": "Cobranza Extrajudicial",
+          "provider": {
+            "@id": "https://ircdebtrecovery.com/#organization"
+          },
+          "areaServed": ["MX","US"],
+          "serviceType": "Debt Collection",
+          "description": "Gestión profesional de cobranza extrajudicial para empresas en México y Estados Unidos."
+        },
+        {
+          "@type": "Service",
+          "position": 2,
+          "name": "Recuperación de Cartera Vencida",
+          "provider": {
+            "@id": "https://ircdebtrecovery.com/#organization"
+          },
+          "areaServed": ["MX","US"],
+          "serviceType": "Portfolio Recovery",
+          "description": "Recuperación de cartera vencida para empresas y corporativos."
+        },
+        {
+          "@type": "Service",
+          "position": 3,
+          "name": "Cobranza Internacional",
+          "provider": {
+            "@id": "https://ircdebtrecovery.com/#organization"
+          },
+          "areaServed": ["MX","US"],
+          "serviceType": "International Debt Recovery",
+          "description": "Servicios de recuperación de adeudos en operaciones internacionales."
+        }
+      ]
+    }
+
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+
+    {
+      "@type": "Question",
+      "name": "¿Qué es la cobranza extrajudicial?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La cobranza extrajudicial es el proceso de recuperación de deudas sin necesidad de iniciar un juicio, mediante negociación profesional y estrategias legales preventivas."
+      }
+    },
+
+    {
+      "@type": "Question",
+      "name": "¿En qué países ofrecen servicios de recuperación de cartera?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ofrecemos servicios de recuperación de cartera y cobranza extrajudicial en México y Estados Unidos, incluyendo recuperación internacional de adeudos."
+      }
+    },
+
+    {
+      "@type": "Question",
+      "name": "¿Qué tipo de empresas pueden contratar servicios de cobranza?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nuestros servicios están dirigidos a empresas, corporativos, instituciones financieras y negocios que requieren recuperar cartera vencida de manera profesional."
+      }
+    },
+
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tiempo tarda la recuperación de una deuda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El tiempo depende del caso y del tipo de adeudo, pero nuestro equipo aplica estrategias de negociación y seguimiento para lograr resultados en el menor tiempo posible."
+      }
+    }
+
+  ]
+}
+</script>
+
+
 
   <!-- GOOGLE ANALYTICS (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RCH1MYMKQG"></script>
@@ -262,7 +349,7 @@
                   loading="lazy">
                 <h3 data-key="service2Title">Asesoría en Gestión de Cartera</h3>
 
-                <span cclass="service-tag" data-key="service2Tag">Empresas con cartera vencida y personas
+                <span class="service-tag" data-key="service2Tag">Empresas con cartera vencida y personas
                   independientes</span>
 
               </div>
@@ -320,7 +407,7 @@
       <div class="container stats-container">
 
         <h2 id="stats-heading" class="section-title-stats" data-key="globalStatsTitle"
-          style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">
+          style="text-align: center; margin-block-end: 2rem; font-size: 2rem;">
           Trayectoria Líder en Recuperación de Activos
         </h2>
 
@@ -343,7 +430,7 @@
         </div>
 
         <p class="section-subtitle" data-key="globalStatsSubtitle"
-          style="text-align: center; margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+          style="text-align: center; margin-block-start: 2rem; max-inline-size: 800px; margin-inline-start: auto; margin-inline-end: auto;">
           Más de dos décadas brindando <strong>soluciones de cobranza legal y extrajudicial</strong> con presencia
           global,
           garantizando seguridad jurídica y liquidez para su empresa.
@@ -559,7 +646,7 @@
         <div class="contact-form">
           <form action="enviar.php" method="POST" id="contactForm">
             <!-- Campo honeypot (oculto para humanos, visible para bots) -->
-            <div style="opacity: 0; position: absolute; left: -9999px; height: 0; overflow: hidden;">
+            <div style="opacity: 0; position: absolute; inset-inline-start: -9999px; block-size: 0; overflow: hidden;">
               <label for="website">No llenar este campo</label>
               <input type="text" name="honeypot" id="website" tabindex="-1" autocomplete="off">
             </div>
@@ -658,75 +745,67 @@
         </div>
 
       </div>
-      <!-- En el footer, reemplaza el bloque de estadísticas con: -->
-      <div class="visit-stats">
-        <h4 style="margin-block-end: 15px; color: #2c3e50;">
-          <i class="fas fa-chart-line"></i> Estadísticas del Sitio
-        </h4>
+      
+      
+<div class="visit-stats">
+    <h4 style="margin-block-end: 15px; color: #2c3e50;">
+        <i class="fas fa-chart-line"></i> <span data-key="statsTitle">Estadísticas del Sitio</span>
+    </h4>
 
-        <div class="stats-grid">
-          <!-- Visitas Totales -->
-          <div class="stat-card" title="Total de visitas desde el inicio">
+    <div class="stats-grid">
+        <!-- Visitas Totales -->
+        <div class="stat-card" title="Total de visitas desde el inicio">
             <div class="stat-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
-              <i class="fas fa-globe-americas"></i>
+                <i class="fas fa-globe-americas"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-label">Visitas Totales</span>
-              <span class="stat-number" id="total-visits" data-target="0">0</span>
+                <span class="stat-label" data-key="statsTotalLabel">Visitas Totales</span>
+                <span class="stat-number" id="total-visits" data-target="0">0</span>
             </div>
-          </div>
+        </div>
 
-          <!-- Visitas Hoy -->
-          <div class="stat-card" title="Visitas de hoy">
+        <!-- Visitas Hoy -->
+        <div class="stat-card" title="Visitas de hoy">
             <div class="stat-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
-              <i class="fas fa-calendar-day"></i>
+                <i class="fas fa-calendar-day"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-label">Visitas Hoy</span>
-              <span class="stat-number" id="today-visits" data-target="0">0</span>
+                <span class="stat-label" data-key="statsTodayLabel">Visitas Hoy</span>
+                <span class="stat-number" id="today-visits" data-target="0">0</span>
             </div>
-          </div>
+        </div>
 
-          <!-- Visitantes Únicos -->
-          <div class="stat-card" title="Visitantes únicos totales">
+        <!-- Visitantes Únicos -->
+        <div class="stat-card" title="Visitantes únicos totales">
             <div class="stat-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
-              <i class="fas fa-users"></i>
+                <i class="fas fa-users"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-label">Visitantes Únicos</span>
-              <span class="stat-number" id="unique-visits" data-target="0">0</span>
+                <span class="stat-label" data-key="statsUniqueLabel">Visitantes Únicos</span>
+                <span class="stat-number" id="unique-visits" data-target="0">0</span>
             </div>
-          </div>
-
-          <!-- Visitas del Mes (opcional) -->
-          <div class="stat-card" style="display: none;" id="month-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
-              <i class="fas fa-calendar-alt"></i>
-            </div>
-            <div class="stat-info">
-              <span class="stat-label">Este Mes</span>
-              <span class="stat-number" id="month-visits">0</span>
-            </div>
-          </div>
         </div>
+    </div>
 
-        <!-- Información adicional (se puede mostrar al hacer hover) -->
-        <div class="stats-footer">
-          <small style="color: #7f8c8d; font-size: 0.8rem;">
-            <i class="fas fa-sync-alt fa-spin"></i> Actualizado en tiempo real
+    <!-- Información adicional -->
+    <div class="stats-footer">
+        <small style="color: #7f8c8d; font-size: 0.8rem;">
+            <i class="fas fa-sync-alt fa-spin"></i> 
+            <span data-key="statsRealTime">Actualizado en tiempo real</span>
             <span id="last-updated" style="margin-inline-start: 10px;"></span>
-          </small>
-        </div>
+        </small>
+    </div>
 
-        <!-- Solo visible en modo debug -->
-        <div id="debug-info"
-          style="display: none; margin-block-start: 10px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
-          <small style="color: #666;">
+    <!-- Solo visible en modo debug -->
+    <div id="debug-info"
+        style="display: none; margin-block-start: 10px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+        <small style="color: #666;">
             <strong>Debug:</strong>
             <span id="api-status">Conectando...</span>
-          </small>
-        </div>
-      </div>
+        </small>
+    </div>
+</div>
+      
     </footer>
 
   </main>
@@ -734,8 +813,17 @@
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="JavaScript/script.js"></script>
   <!-- Script del contador de visitas -->
-  <script src="JavaScript/visit-counter.js"></script>
-
+  <script src="JavaScript/countapi-visits.js"></script>
+    <!-- ===========================================
+         BOTÓN DE WHATSAPP FLOTANTE
+         =========================================== -->
+  
+    <a href="tel:529982160639" 
+   class="whatsapp-float" 
+   aria-label="Contactar por WhatsApp con Impulsora de Recuperación Crediticia"
+   title="¡Hablemos por WhatsApp!">
+    <i class="fab fa-whatsapp"></i>
+</a>
 </body>
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js">
 </script>
