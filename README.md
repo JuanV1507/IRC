@@ -1,5 +1,14 @@
- Características Principales
-🌍 Multilingüe
+🌐 Sitio Web Corporativo – Plataforma Multilingüe y Optimizada para SEO
+
+Este proyecto es un sitio web corporativo moderno enfocado en rendimiento, SEO técnico e internacionalización, diseñado con un enfoque mobile-first, componentes interactivos y buenas prácticas actuales de desarrollo frontend.
+
+<img width="413" height="720" alt="image" src="https://github.com/user-attachments/assets/4dc320cd-d3a4-45b6-966e-a67d0e16af02" />
+
+🚀 Características Principales
+🌍 Soporte Multilingüe
+
+El sitio cuenta con un sistema de internacionalización que permite cambiar dinámicamente el idioma:
+
 Español (principal)
 
 Inglés
@@ -8,112 +17,179 @@ Chino simplificado (zh-Hans)
 
 Chino tradicional (zh-Hant)
 
-Sistema de traducción basado en data-key
+Implementación:
+
+Sistema de traducción basado en atributos data-key
+
+Contenido dinámico sin recarga de página
+
+Compatibilidad con SEO internacional mediante hreflang
 
 📱 Diseño Responsive
-<img width="413" height="720" alt="image" src="https://github.com/user-attachments/assets/4dc320cd-d3a4-45b6-966e-a67d0e16af02" />
 
-Mobile-first approach
+El diseño está optimizado para funcionar correctamente en todos los dispositivos.
 
-Menú hamburguesa para móviles
+Características:
 
-Layout adaptativo para todos los dispositivos
+Enfoque Mobile-First
 
-Optimización de imágenes con lazy loading
+Menú hamburguesa para dispositivos móviles
+
+Layout adaptable a distintas resoluciones
+
+Optimización de imágenes con Lazy Loading
+
+<img width="1901" height="1024" alt="image" src="https://github.com/user-attachments/assets/62197787-741c-4d0d-84cb-b1395bf6048e" />
 
 🎨 Componentes Modernos
-<img width="1901" height="1024" alt="image" src="https://github.com/user-attachments/assets/62197787-741c-4d0d-84cb-b1395bf6048e" />
+
+El sitio incluye elementos interactivos para mejorar la experiencia del usuario:
 
 Hero section con animaciones
 
-Servicios interactivos con cards flip
+Tarjetas de servicios interactivas (flip cards)
 
-Carrusel de clientes infinito
+Carrusel infinito de clientes
 
-Mapa mundial interactivo (Leaflet.js)
+Mapa mundial interactivo usando Leaflet.js
 
 Formulario de contacto con validación
 
 Contador de visitas en tiempo real
 
-🔧 Tecnologías Implementadas
+🛠 Tecnologías Implementadas
 Frontend
+
 HTML5 semántico
 
-CSS3 moderno (Flexbox, Grid, variables CSS)
+CSS3 moderno
 
-JavaScript vanilla (ES6+)
+Flexbox
 
-AOS.js - Animaciones al scroll
+Grid
 
-Leaflet.js - Mapas interactivos
+Variables CSS
 
-SEO & Performance
-Schema.org structured data (Organization, FAQ, Services)
+JavaScript Vanilla (ES6+)
 
-Open Graph tags para redes sociales
+Librerías y herramientas
 
-Twitter Cards optimizadas
+AOS.js — Animaciones al hacer scroll
+
+Leaflet.js — Mapas interactivos
+
+⚡ SEO y Performance
+
+El sitio está optimizado para posicionamiento y velocidad de carga.
+
+Implementaciones clave
+
+Structured Data (Schema.org)
+
+Open Graph para redes sociales
+
+Twitter Cards
 
 Preloading de recursos críticos
 
 Lazy loading de imágenes
 
-Compresión de imágenes WebP
+Imágenes en formato WebP
 
-Analytics & Tracking
+📊 Analytics y Métricas
+
 Google Analytics (GA4)
 
 Contador de visitas con CountAPI
 
-Optimización para métricas Core Web Vitals
+Optimización para Core Web Vitals
 
-🔧 Técnicas SEO Implementadas
-1. Arquitectura Técnica Optimizada
-Core Web Vitals cumplidos al 100%
+🔎 Técnicas SEO Implementadas
+Arquitectura Técnica Optimizada
 
-Lazy Loading nativo para imágenes y scripts
+Core Web Vitals cumplidos
 
-Preload/Preconnect de recursos críticos
+Lazy Loading nativo
 
-Compresión WebP para imágenes
+Preload y Preconnect
 
-Minificación de CSS/JS
+Minificación de CSS y JavaScript
 
-2. SEO Internacional Avanzado
-Implementación hreflang para 4 idiomas (ES, EN, ZH-Hans, ZH-Hant)
+Compresión WebP
 
-URLs canónicas consistentes por versión lingüística
+SEO Internacional
 
-Meta tags localizados por idioma y región
+Implementación de hreflang para:
+
+Español
+
+Inglés
+
+Chino simplificado
+
+Chino tradicional
+
+URLs canónicas por idioma
+
+Meta tags localizados por región
 
 Targeting geográfico para México y Estados Unidos
 
-3. Estructura de Datos (Schema.org)
-JSON-LD implementado para Organization, FAQPage, Services
+Estructura de Datos (Schema.org)
 
-Rich Snippets para preguntas frecuentes
+Implementación mediante JSON-LD:
 
-Breadcrumbs estructurados
+Organization
 
-Datos de contacto en formato máquina
+FAQPage
 
-4. Estrategia de Contenido SEO
-Keyword research específico para servicios de cobranza
+Services
 
-Títulos H1-H6 optimizados semánticamente
+Breadcrumbs
 
-Densidad de keywords natural (3-4%)
+Datos de contacto estructurados
 
-Meta descriptions persuasivas y con CTAs
+Estrategia de Contenido SEO
 
-Contenido único sin duplicación
+Investigación de keywords específica del sector
 
-5. Mobile-First Indexing
-Diseño responsive con enfoque mobile-first
+Uso semántico correcto de encabezados H1-H6
 
-Touch optimization para navegación móvil
+Densidad de keywords natural
 
-Tamaños de fuente responsivos (clamp())
+Meta descriptions optimizadas con CTA
 
-Viewport configurado correctamente
+Contenido único y sin duplicaciones
+
+Mobile-First Indexing
+
+Diseño responsive optimizado
+
+Navegación táctil optimizada
+
+Tipografía responsiva usando clamp()
+
+Configuración correcta del viewport
+
+📈 Objetivo del Proyecto
+
+Este sitio fue desarrollado para:
+
+Maximizar visibilidad en buscadores
+
+Ofrecer experiencia fluida en móviles
+
+Facilitar expansión internacional
+
+Mejorar velocidad y rendimiento
+
+# Vista previa del proyecto
+<img width="1897" height="940" alt="image" src="https://github.com/user-attachments/assets/193c6a2d-51db-4222-98e5-606f57dbe67e" />
+## Sección de servicios
+<img width="1887" height="928" alt="image" src="https://github.com/user-attachments/assets/9a4e5902-29fe-4798-a109-4943b526deba" />
+## Versión móvil
+<img width="550" height="906" alt="image" src="https://github.com/user-attachments/assets/8207c180-cd64-41d9-9ee3-2766184a9759" />
+<img width="568" height="902" alt="image" src="https://github.com/user-attachments/assets/1c3260de-28f3-4f9c-82cf-60167d9bde78" />
+<img width="518" height="873" alt="image" src="https://github.com/user-attachments/assets/709871f3-824e-4535-af36-e915062226fb" />
+
+
