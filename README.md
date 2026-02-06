@@ -2,8 +2,6 @@
 
 Este proyecto es un sitio web corporativo moderno enfocado en rendimiento, SEO técnico e internacionalización, diseñado con un enfoque mobile-first, componentes interactivos y buenas prácticas actuales de desarrollo frontend.
 
-<img width="413" height="720" alt="image" src="https://github.com/user-attachments/assets/4dc320cd-d3a4-45b6-966e-a67d0e16af02" />
-
 🚀 Características Principales
 🌍 Soporte Multilingüe
 
